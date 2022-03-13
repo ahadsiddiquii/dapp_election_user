@@ -20,7 +20,7 @@ class FullWidthButton extends StatelessWidget {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
-    List<Color> buttonColorTheme = [Color(0xffF5b301), Color(0xFFF5b301)];
+    List<Color> buttonColorTheme = [Colors.black, Colors.black];
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 7),

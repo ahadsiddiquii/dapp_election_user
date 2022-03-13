@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dapp_election_user">
+   <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="dapp_election_user"
         android:icon="@mipmap/ic_launcher">

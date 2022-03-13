@@ -1,8 +1,17 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dapp_election_user/EventContractLinking.dart';
+import 'package:dapp_election_user/models/Election/ElectionEvent.dart';
+import 'package:dapp_election_user/src/ui/OtpScreen.dart';
+import 'package:dapp_election_user/src/ui/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../../blocs/ElectionEvent/electionevent_bloc.dart';
+import 'ResultsScreen.dart';
 
 class EventListScreen extends StatefulWidget {
   static const routeName = '/eventList-screen';
@@ -11,48 +20,334 @@ class EventListScreen extends StatefulWidget {
 }
 
 class _EventListScreenState extends State<EventListScreen> {
+  String eventStatus = "In Progress Events";
   @override
   void initState() {
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      setState(() {});
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var contractLink = Provider.of<EventContractLinking>(context);
+    final theme = Theme.of(context);
+    // var contractLink = Provider.of<EventContractLinking>(context);
+
+    Widget oneElection(String status, ElectionEvent event, String image,
+        void Function() function) {
+      return InkWell(
+        onTap: function,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Stack(
+            children: [
+              Container(
+                height: 150,
+                width: size.width * 0.5,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                  image: DecorationImage(
+                      image: AssetImage(image), fit: BoxFit.cover),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 3.0,
+                    ),
+                  ],
+                  color: Colors.white,
+                ),
+              ),
+              Container(
+                alignment: AlignmentDirectional.bottomStart,
+                height: 150,
+                width: size.width * 0.5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                  gradient: LinearGradient(
+                      begin: Alignment.center,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.9),
+                      ]),
+                  color: Colors.black,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    event.eventName,
+                    style: theme.textTheme.subtitle1?.merge(
+                      TextStyle(
+                        color: Colors.white,
+                        // fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget electionInProgressList() {
+      return BlocBuilder<ElectioneventBloc, ElectioneventState>(
+        builder: (context, state) {
+          List<ElectionEvent> newEvent = [];
+          if (state is AllElectionEventsRetrieved) {
+            state.electionEvents.forEach((element) {
+              if (element.stateOfEvent == "inProgress") {
+                newEvent.add(element);
+              }
+            });
+            return Container(
+              width: size.width,
+              height: 160,
+              padding: EdgeInsets.only(left: size.width * 0.03),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: newEvent.map((p) {
+                    return oneElection(
+                        "inProgress", p, 'assets/images/electionImage.jpg', () {
+                      // TODO:LoginCheck
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LoginScreen(
+                                eEvent: p,
+                              )));
+                      // Navigator.of(context).pushNamed(LoginScreen.routeName);
+                    });
+                  }).toList(),
+                ),
+              ),
+            );
+          } else {
+            return Container(
+              width: size.width * 0.9,
+            );
+          }
+        },
+      );
+    }
+
+    Widget electionCompletedList() {
+      return BlocBuilder<ElectioneventBloc, ElectioneventState>(
+        builder: (context, state) {
+          List<ElectionEvent> newEvent = [];
+          if (state is AllElectionEventsRetrieved) {
+            state.electionEvents.forEach((element) {
+              if (element.stateOfEvent == "Completed") {
+                newEvent.add(element);
+              }
+            });
+            return Container(
+              width: size.width,
+              height: 160,
+              padding: EdgeInsets.only(left: size.width * 0.03),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: newEvent.map((p) {
+                    return oneElection(
+                        "Completed", p, 'assets/images/votingImage.jpg', () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ResultScreen(
+                                eEvent: p,
+                              )));
+                      // Navigator.of(context).pushNamed(ResultScreen.routeName);
+                    });
+                  }).toList(),
+                ),
+              ),
+            );
+          } else {
+            return Container(
+              width: size.width * 0.9,
+            );
+          }
+        },
+      );
+    }
 
     return Scaffold(
+      backgroundColor: theme.primaryColor,
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            // SizedBox(height: 20),
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: theme.primaryColor,
+              ),
+              child: Container(
+                  // color: Colors.red,
+                  ),
+            ),
+            ListTile(
+              title: const Text('In Progress'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                setState(() {
+                  eventStatus = 'In Progress';
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: const Text('Completed Events'),
+              onTap: () {
+                setState(() {
+                  eventStatus = 'Completed Events';
+                });
+                // Update the state of the app.
+                // ...
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        // shadowColor: Colors.grey.shade100,
+        elevation: 0,
+        bottomOpacity: 0.0,
+      ),
       body: SingleChildScrollView(
         child: Container(
+          width: size.width,
           // height: size.height,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 50),
-                InkWell(
-                  onTap: () {
-                    contractLink.getEventData();
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: size.height * 0.1,
-                    width: size.width * 0.9,
-                    child: AutoSizeText(
-                      "Current Events",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                      maxFontSize: 22,
-                      minFontSize: 8,
+                Container(
+                  width: size.width * 0.9,
+                  child: Text(
+                    'Welcome',
+                    style: theme.textTheme.headline2?.merge(
+                      TextStyle(
+                        color: Colors.black,
+                        // fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  width: size.width * 0.9,
+                  child: Text(
+                    'Elections in Progress',
+                    style: theme.textTheme.headline3?.merge(
+                      TextStyle(
+                        color: Colors.black,
+                        // fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                electionInProgressList(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: size.width * 0.9,
+                  child: Text(
+                    'Elections Completed',
+                    style: theme.textTheme.headline3?.merge(
+                      TextStyle(
+                        color: Colors.black,
+                        // fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                electionCompletedList(),
                 // Container(
-                //   height: size.height * 0.3,
-                //   width: size.width * 0.7,
-                //   child: Lottie.network(
-                //       "https://assets6.lottiefiles.com/packages/lf20_omrk3sbt.json"),
+                //   height: 50,
+                //   width: size.width * 0.9,
+                //   padding: EdgeInsets.symmetric(horizontal: 20),
+                //   color: Colors.yellow,
+                //   child: InkWell(
+                //     onTap: () {
+                //       // contractLink.getEventData();
+                //       Navigator.of(context).pushNamed(ResultScreen.routeName);
+                //     },
+                //     child: Container(
+                //       alignment: Alignment.centerLeft,
+                //       height: size.height * 0.1,
+                //       width: size.width * 0.8,
+                //       child: AutoSizeText(
+                //         // ""
+                //         // "Current Events",
+                //         "Event 1",
+                //         style: TextStyle(
+                //             fontSize: 18, fontWeight: FontWeight.w600),
+                //         maxFontSize: 22,
+                //         minFontSize: 8,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: 10),
+                // Container(
+                //   height: 50,
+                //   width: size.width * 0.9,
+                //   padding: EdgeInsets.symmetric(horizontal: 20),
+                //   color: Colors.yellow,
+                //   child: InkWell(
+                //     onTap: () {
+                //       // contractLink.getEventData();
+
+                //       Navigator.of(context).pushNamed(LoginScreen.routeName);
+                //     },
+                //     child: Container(
+                //       alignment: Alignment.centerLeft,
+                //       height: size.height * 0.1,
+                //       width: size.width * 0.8,
+                //       child: AutoSizeText(
+                //         // ""
+                //         // "Current Events",
+                //         "Event 2",
+                //         style: TextStyle(
+                //             fontSize: 18, fontWeight: FontWeight.w600),
+                //         maxFontSize: 22,
+                //         minFontSize: 8,
+                //       ),
+                //     ),
+                //   ),
                 // ),
               ],
             ),

@@ -35,6 +35,7 @@ dependencies:
   lottie: ^0.7.0
   open_file: ^3.2.1
   path_provider: ^2.0.5
+  pin_code_fields: ^7.3.0
   provider: ^6.0.0
   shared_preferences: ^2.0.11
   web3dart: ^1.2.3
@@ -59,6 +60,7 @@ flutter:
     - src/artifacts/HelloWorld.json
     - src/artifacts/LoginSystem.json
     - assets/images/
+    - assets/images/json_assets/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -69,6 +71,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy/Gilroy-Regular.otf
+        - asset: assets/fonts/Gilroy/Gilroy-Semibold.otf
+          weight: 700
+        - asset: assets/fonts/Gilroy/Gilroy-Medium.otf
+          weight: 500
   # fonts:
   #   - family: Schyler
   #     fonts:
