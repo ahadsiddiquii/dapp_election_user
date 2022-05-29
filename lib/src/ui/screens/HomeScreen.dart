@@ -1,17 +1,12 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:csv/csv.dart';
 import 'package:dapp_election_user/src/blocs/EventBloc/eventbloc_bloc.dart';
 import 'package:dapp_election_user/src/ui/configs/Constants.dart';
-import 'package:dapp_election_user/src/ui/configs/Helper.dart';
 import 'package:dapp_election_user/src/ui/screens/EventDetailsInputScreen.dart';
 import 'package:dapp_election_user/src/ui/widgets/Snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:dapp_election_user/src/ui/widgets/FullWidthButton.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'NavigationDrawerWidget.dart';

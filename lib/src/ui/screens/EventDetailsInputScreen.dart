@@ -6,10 +6,7 @@ import 'package:dapp_election_user/src/ui/widgets/FullWidthButton.dart';
 import 'package:dapp_election_user/src/ui/widgets/Snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
-import 'LoginScreen.dart';
 
 class EventDetailsInputScreen extends StatefulWidget {
   static const routeName = '/eventdetails-screen';

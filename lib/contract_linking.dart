@@ -98,7 +98,7 @@ class ContractLinking extends ChangeNotifier {
     try {
       isLoading = true;
       notifyListeners();
-      print("${enteredEmail}, ${enteredPassword}");
+      print("$enteredEmail, $enteredPassword");
       // var currentName =
 
       await _client.sendTransaction(
@@ -127,7 +127,7 @@ class ContractLinking extends ChangeNotifier {
     try {
       isLoading = true;
       notifyListeners();
-      print("${enteredEmail}, ${enteredPassword}");
+      print("$enteredEmail, $enteredPassword");
 
       // var credentialsOfUser = await _client.sendTransaction(
       //     _credentials,

@@ -3,7 +3,6 @@ import 'package:dapp_election_user/src/ui/screens/VotingScreen.dart';
 import 'package:dapp_election_user/src/ui/widgets/FullWidthButton.dart';
 import 'package:dapp_election_user/src/ui/widgets/Snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'dart:math';
 
@@ -112,7 +111,7 @@ class _OTPScreenState extends State<OTPScreen> {
         otp = currentOtp;
       });
       ScaffoldMessenger.of(context)
-          .showSnackBar(showSnackbar("Your otp is ${otp}"));
+          .showSnackBar(showSnackbar("Your otp is $otp"));
     }
 
     return Scaffold(

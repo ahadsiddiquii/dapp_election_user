@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:dapp_election_user/models/User.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';

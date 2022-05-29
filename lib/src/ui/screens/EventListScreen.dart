@@ -1,15 +1,8 @@
 import 'dart:async';
-
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dapp_election_user/EventContractLinking.dart';
 import 'package:dapp_election_user/models/Election/ElectionEvent.dart';
-import 'package:dapp_election_user/src/ui/OtpScreen.dart';
 import 'package:dapp_election_user/src/ui/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
-
 import '../../blocs/ElectionEvent/electionevent_bloc.dart';
 import 'ResultsScreen.dart';
 

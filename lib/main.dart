@@ -4,11 +4,9 @@ import 'package:dapp_election_user/src/blocs/EventBloc/eventbloc_bloc.dart';
 import 'package:dapp_election_user/src/ui/screens/SplashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:dapp_election_user/contract_linking.dart';
-import 'package:dapp_election_user/helloUI.dart';
 import 'package:dapp_election_user/hello_world_contract_linking.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'src/ui/configs/Routes.dart';
 
 void main() {
