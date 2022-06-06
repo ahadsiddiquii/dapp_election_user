@@ -1,5 +1,10 @@
 import 'dart:async';
+import 'package:dapp_election_user/models/Election/BackendFunctions.dart';
+import 'package:dapp_election_user/models/Election/ElectionCandidate.dart';
 import 'package:dapp_election_user/models/Election/ElectionEvent.dart';
+import 'package:dapp_election_user/models/Election/ElectionParty.dart';
+import 'package:dapp_election_user/models/Election/ElectionPosition.dart';
+import 'package:dapp_election_user/models/Election/ElectionUser.dart';
 import 'package:dapp_election_user/src/ui/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -237,13 +242,128 @@ class _EventListScreenState extends State<EventListScreen> {
               children: [
                 Container(
                   width: size.width * 0.9,
-                  child: Text(
-                    'Welcome',
-                    style: theme.textTheme.headline2?.merge(
-                      TextStyle(
-                        color: Colors.black,
-                        // fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
+                  child: GestureDetector(
+                    onTap: () {
+                      allEvents.add(ElectionEvent(
+                          eid: "D",
+                          eventName: "City School Election 2022",
+                          stateOfEvent: "inProgress",
+                          startTime: DateTime.now(),
+                          endTime: DateTime.now().add(Duration(days: 10)),
+                          electionUsers: [
+                            ElectionUser(
+                              eid: "a",
+                              userCnic: "42101123456790",
+                              userPhone: "+923222111222",
+                              userFullName: "Hateem Amir",
+                              dateOfBirth: DateTime.now(),
+                              gender: "M",
+                              dateOfCnicExpiry:
+                                  DateTime.now().add(Duration(days: 1000)),
+                            ),
+                            ElectionUser(
+                              eid: "a",
+                              userCnic: "42101123456791",
+                              userPhone: "+923222111223",
+                              userFullName: "Malaika Aslam",
+                              dateOfBirth: DateTime.now(),
+                              gender: "F",
+                              dateOfCnicExpiry:
+                                  DateTime.now().add(Duration(days: 1000)),
+                            ),
+                            ElectionUser(
+                              eid: "a",
+                              userCnic: "42101123456792",
+                              userPhone: "+923222111224",
+                              userFullName: "Emma Hudson",
+                              dateOfBirth: DateTime.now(),
+                              gender: "T",
+                              dateOfCnicExpiry:
+                                  DateTime.now().add(Duration(days: 1000)),
+                            ),
+                            ElectionUser(
+                              eid: "a",
+                              userCnic: "42101123456793",
+                              userPhone: "+923222111225",
+                              userFullName: "Ahad Siddiqui",
+                              dateOfBirth: DateTime.now(),
+                              gender: "M",
+                              dateOfCnicExpiry:
+                                  DateTime.now().add(Duration(days: 1000)),
+                            ),
+                            ElectionUser(
+                              eid: "a",
+                              userCnic: "42101123456794",
+                              userPhone: "+923222111226",
+                              userFullName: "Uzair Nadeem",
+                              dateOfBirth: DateTime.now(),
+                              gender: "M",
+                              dateOfCnicExpiry:
+                                  DateTime.now().add(Duration(days: 1000)),
+                            ),
+                            ElectionUser(
+                              eid: "a",
+                              userCnic: "42101123456797",
+                              userPhone: "+923222111226",
+                              userFullName: "Musab Nadeem",
+                              dateOfBirth: DateTime.now(),
+                              gender: "M",
+                              dateOfCnicExpiry:
+                                  DateTime.now().add(Duration(days: 1000)),
+                            ),
+                          ],
+                          electionPositions: [
+                            ElectionPosition(
+                                positionId: "a1",
+                                eid: "a",
+                                positionName: "head"),
+                          ],
+                          electionParties: [
+                            ElectionParty(
+                                partyCode: "ppp",
+                                eid: "a",
+                                partyName: "Public Peoples Party"),
+                            ElectionParty(
+                                partyCode: "dds",
+                                eid: "a",
+                                partyName: "Democrats")
+                          ],
+                          electionBallots: [],
+                          electionCandidates: [
+                            ElectionCandidate(
+                                eid: "a",
+                                candidateCnic: "42101123456790",
+                                position: ElectionPosition(
+                                    positionId: "a1",
+                                    eid: "a",
+                                    positionName: "president"),
+                                party: ElectionParty(
+                                    partyCode: "ppp",
+                                    eid: "a",
+                                    partyName: "Public Peoples Party"),
+                                votes: 0),
+                            ElectionCandidate(
+                                eid: "a",
+                                candidateCnic: "42101123456791",
+                                position: ElectionPosition(
+                                    positionId: "a1",
+                                    eid: "a",
+                                    positionName: "president"),
+                                party: ElectionParty(
+                                    partyCode: "dds",
+                                    eid: "a",
+                                    partyName: "Democrats"),
+                                votes: 0)
+                          ]));
+                    },
+                    child: Text(
+                      'Welcome',
+                      style: theme.textTheme.headline2?.merge(
+                        TextStyle(
+                          color: Colors.black,
+                          // fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
