@@ -4,6 +4,7 @@ import 'package:dapp_election_user/src/ui/screens/HomeScreen.dart';
 import 'package:dapp_election_user/src/ui/screens/LoginScreen.dart';
 import 'package:dapp_election_user/src/ui/screens/ResultsScreen.dart';
 import 'package:dapp_election_user/src/ui/screens/SplashScreen.dart';
+import 'package:dapp_election_user/src/ui/screens/ViewAllScreen.dart';
 import 'package:dapp_election_user/src/ui/screens/VotingScreen.dart';
 
 import 'package:flutter/material.dart';
@@ -19,4 +20,5 @@ final Map<String, Widget Function(BuildContext)> routes = {
   OTPScreen.routeName: (ctx) => OTPScreen(),
   ResultScreen.routeName: (ctx) => ResultScreen(),
   VotingScreen.routeName: (ctx) => VotingScreen(),
+  ViewAllScreen.routeName: (ctx) => ViewAllScreen(),
 };

@@ -1,3 +1,4 @@
+import 'package:dapp_election_user/main.dart';
 import 'package:dapp_election_user/models/Election/ElectionEvent.dart';
 import 'package:dapp_election_user/src/ui/screens/VotingScreen.dart';
 import 'package:dapp_election_user/src/ui/widgets/FullWidthButton.dart';
@@ -110,8 +111,9 @@ class _OTPScreenState extends State<OTPScreen> {
         firstTimeOtpSent = true;
         otp = currentOtp;
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(showSnackbar("Your otp is $otp"));
+      registerNotification(otp);
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(showSnackbar("Your otp is $otp"));
     }
 
     return Scaffold(

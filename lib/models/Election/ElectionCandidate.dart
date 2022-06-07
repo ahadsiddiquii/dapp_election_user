@@ -17,12 +17,23 @@ class ElectionCandidate {
     this.votes,
   });
 
-  // ElectionCandidate.fromJson(Map< String, dynamic> json) {
-  //   this.senderId = json['SenderId'];
+  ElectionCandidate.fromJson(Map<String, dynamic> json) {
+    this.eid = json['eid'];
+    this.candidateCnic = json['candidateCnic'];
+    this.position = ElectionPosition.fromJson(json['position']);
+    this.party = ElectionParty.fromJson(json["party"]);
 
-  //   this.receiverId = json['RecieverId'];
+    this.votes = json['votes'];
+  }
 
-  //   this.bookingId = (json['BookingId']).toInt();
-  //   this.text = json['Text'];
-  // }
+  Map<String, dynamic> toJson(ElectionCandidate electionCandidate) {
+    Map<String, dynamic> electionsMap = {
+      "eid": electionCandidate.eid,
+      "candidateCnic": electionCandidate.candidateCnic,
+      "votes": electionCandidate.votes,
+      "party": electionCandidate.party.toJson(electionCandidate.party),
+      "position": electionCandidate.position.toJson(electionCandidate.position),
+    };
+    return electionsMap;
+  }
 }

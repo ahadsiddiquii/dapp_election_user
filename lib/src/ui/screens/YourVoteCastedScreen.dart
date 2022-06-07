@@ -103,8 +103,8 @@ class _YourVoteCastedScreenState extends State<YourVoteCastedScreen> {
               Container(
                 height: size.height * 0.2,
                 width: size.width * 0.9,
-                child: Lottie.network(
-                    "https://assets10.lottiefiles.com/packages/lf20_xldzoar8.json"),
+                child:
+                    Lottie.asset("assets/images/json_assets/alreadyVoted.json"),
               ),
               SizedBox(height: 12),
               Container(

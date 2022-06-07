@@ -31,7 +31,7 @@ class _EventDetailsInputScreenState extends State<EventDetailsInputScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    var eventContractLink = Provider.of<EventContractLinking>(context);
+    // var eventContractLink = Provider.of<EventContractLinking>(context);
     return Scaffold(
       body: Container(
         height: size.height,
@@ -190,15 +190,15 @@ class _EventDetailsInputScreenState extends State<EventDetailsInputScreen> {
                       final eventState =
                           BlocProvider.of<EventblocBloc>(context).state;
                       if (eventState is EventDetailsInitialAdded) {
-                        eventContractLink.createEvent(
-                            eventState.eventName,
-                            eventState.stateOfEvent,
-                            eventState.startDate,
-                            eventState.endDate,
-                            userList,
-                            positionsList,
-                            partiesList,
-                            candidatesList);
+                        // eventContractLink.createEvent(
+                        //     eventState.eventName,
+                        //     eventState.stateOfEvent,
+                        //     eventState.startDate,
+                        //     eventState.endDate,
+                        //     userList,
+                        //     positionsList,
+                        //     partiesList,
+                        //     candidatesList);
                       }
                       Navigator.of(context).pop();
                       ScaffoldMessenger.of(context).showSnackBar(
