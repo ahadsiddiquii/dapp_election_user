@@ -118,8 +118,7 @@ class _ResultScreenState extends State<ResultScreen> {
               Container(
                 height: size.height * 0.2,
                 width: size.width * 0.9,
-                child: Lottie.network(
-                    "https://assets10.lottiefiles.com/packages/lf20_xldzoar8.json"),
+                child: Lottie.asset("assets/images/json_assets/results.json"),
               ),
               SizedBox(height: 12),
               Container(

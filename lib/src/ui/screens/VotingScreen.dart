@@ -318,22 +318,22 @@ class _VotingScreenState extends State<VotingScreen> {
                         FullWidthButton(
                             text: "Yes",
                             func: () {
-                              allEvents.forEach((element) {
-                                if (widget.eEvent.eid == element.eid) {
-                                  element.electionBallots.add(ElectionBallot(
-                                      eid: element.eid,
-                                      candidateCnic:
-                                          selectedCandidate.candidateCnic,
-                                      voterCnic: widget.userCnic));
-                                  element.electionCandidates
-                                      .forEach((candidate) {
-                                    if (candidate.candidateCnic ==
-                                        selectedCandidate.candidateCnic) {
-                                      candidate.votes++;
-                                    }
-                                  });
-                                }
-                              });
+                              // allEvents.forEach((element) {
+                              //   if (widget.eEvent.eid == element.eid) {
+                              //     element.electionBallots.add(ElectionBallot(
+                              //         eid: element.eid,
+                              //         candidateCnic:
+                              //             selectedCandidate.candidateCnic,
+                              //         voterCnic: widget.userCnic));
+                              //     element.electionCandidates
+                              //         .forEach((candidate) {
+                              //       if (candidate.candidateCnic ==
+                              //           selectedCandidate.candidateCnic) {
+                              //         candidate.votes++;
+                              //       }
+                              //     });
+                              //   }
+                              // });
                               Navigator.of(context).pop();
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(

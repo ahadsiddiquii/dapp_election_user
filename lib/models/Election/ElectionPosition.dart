@@ -9,12 +9,18 @@ class ElectionPosition {
     this.positionName,
   });
 
-  // ElectionPosition.fromJson(Map<String, dynamic> json) {
-  //   this.senderId = json['SenderId'];
+  ElectionPosition.fromJson(Map<String, dynamic> json) {
+    this.positionId = json['positionId'];
+    this.eid = json['eid'];
+    this.positionName = json['positionName'];
+  }
 
-  //   this.receiverId = json['RecieverId'];
-
-  //   this.bookingId = (json['BookingId']).toInt();
-  //   this.text = json['Text'];
-  // }
+  Map<String, dynamic> toJson(ElectionPosition electionPosition) {
+    Map<String, dynamic> electionsMap = {
+      "positionId": electionPosition.positionId,
+      "eid": electionPosition.eid,
+      "positionName": electionPosition.positionName,
+    };
+    return electionsMap;
+  }
 }

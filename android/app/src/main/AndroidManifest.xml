@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dapp_election_user">
+    package="com.fyp.dapp_election_user">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="dapp_election_user"
+        android:name="${applicationName}"
+        android:label="Blockchain Voting User"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

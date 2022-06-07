@@ -1,16 +1,74 @@
 import 'package:dapp_election_user/EventContractLinking.dart';
 import 'package:dapp_election_user/src/blocs/ElectionEvent/electionevent_bloc.dart';
+import 'package:dapp_election_user/src/blocs/Event/event_bloc.dart';
 import 'package:dapp_election_user/src/blocs/EventBloc/eventbloc_bloc.dart';
 import 'package:dapp_election_user/src/ui/screens/SplashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:dapp_election_user/contract_linking.dart';
 import 'package:dapp_election_user/hello_world_contract_linking.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'src/ui/configs/Routes.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Paint.enableDithering = true;
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Firebase.initializeApp();
+  if (Firebase.apps.length == 0) {
+    print("Firebase not initialized");
+  } else {
+    print("Firebase is initialized");
+  }
   runApp(MyApp());
+}
+
+void registerNotification(String otp) {
+  FlutterLocalNotificationsPlugin flip = new FlutterLocalNotificationsPlugin();
+
+  // app_icon needs to be a added as a drawable
+  // resource to the Android head project.
+  var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+  var IOS = new IOSInitializationSettings();
+
+  // initialise settings for both Android and iOS device.
+  var settings = new InitializationSettings(android: android, iOS: IOS);
+  flip.initialize(settings);
+  _showNotificationWithDefaultSound(flip, otp);
+}
+
+Future _showNotificationWithDefaultSound(flip, otp) async {
+  String notifTitle = "Two factor authentication";
+  String notifDesc = "Your OTP is: $otp";
+  // Show a notification after every 15 minute with the first
+  // appearance happening a minute after invoking the method
+  var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'your channel id', 'your channel name',
+      importance: Importance.defaultImportance,
+      priority: Priority.defaultPriority);
+  var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+
+  // initialise channel platform for both Android and iOS device.
+  var platformChannelSpecifics = new NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics);
+  await flip.show(0, notifTitle, notifDesc, platformChannelSpecifics,
+      payload: 'Default_Sound');
+  showSimpleNotification(
+    Text(notifTitle),
+    leading: Icon(Icons.notifications),
+    subtitle: Text(
+      notifDesc,
+    ),
+    slideDismissDirection: DismissDirection.horizontal,
+    foreground: Colors.black,
+    duration: Duration(seconds: 5),
+    background: Colors.white,
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,23 +77,25 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => EventblocBloc()),
-        BlocProvider(create: (context) => ElectioneventBloc())
+        BlocProvider(create: (context) => ElectioneventBloc()),
+        BlocProvider(create: (context) => EventBloc())
       ],
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<ContractLinking>(
-            create: (_) => ContractLinking(),
-          ),
-          ChangeNotifierProvider<HelloWorldContractLinking>(
-            create: (_) => HelloWorldContractLinking(),
-          ),
-          ChangeNotifierProvider<EventContractLinking>(
-            create: (_) => EventContractLinking(),
-          ),
-        ],
+      // child: MultiProvider(
+      // providers: [
+      // ChangeNotifierProvider<ContractLinking>(
+      //   create: (_) => ContractLinking(),
+      // ),
+      // ChangeNotifierProvider<HelloWorldContractLinking>(
+      //   create: (_) => HelloWorldContractLinking(),
+      // ),
+      // ChangeNotifierProvider<EventContractLinking>(
+      //   create: (_) => EventContractLinking(),
+      // ),
+      // ],
 
-        // ChangeNotifierProvider<ContractLinking>(
-        //   create: (_) => ContractLinking(),
+      // ChangeNotifierProvider<ContractLinking>(
+      //   create: (_) => ContractLinking(),
+      child: OverlaySupport(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           routes: routes,
@@ -72,6 +132,7 @@ class MyApp extends StatelessWidget {
           home: SplashScreen(),
         ),
       ),
+      // ),
     );
   }
 }
